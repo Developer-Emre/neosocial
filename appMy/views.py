@@ -1,5 +1,6 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login,logout
 from .models import *
 
 # Create your views here.
@@ -45,6 +46,8 @@ def detail(request, postTitle):
     }
     return render (request,'detail.html',context)
 
+
+
 def register(request):
     
     if request.method =='POST':
@@ -81,3 +84,28 @@ def register(request):
             return render (request,'register.html',context)
     
     return render (request,'register.html')
+
+def loginn(request):
+    
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        
+        user = authenticate(request, username=username, password=password)
+        
+        if user is not None:
+            login(request, user)
+            return redirect('anasayfa')
+        else:
+            context = {
+                'information': 'Girmiş olduğunuz bilgiler hatalı kullanıcı adı ve parolanızı kontrol ediniz.'
+            }
+            return render(request, 'login.html', context)
+    
+    return render(request, 'login.html')
+
+def logoutt(request):
+    
+    logout(request)
+    
+    return redirect ('anasayfa')

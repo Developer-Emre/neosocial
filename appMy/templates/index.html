@@ -48,9 +48,27 @@
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">Search</button>
               </form>
+              
+              {% if request.user.is_authenticated %}                
+              <img src="request.user.img" class="ms-5 rounded-circle" alt="...">
+              <div class="ms-3 dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  {{request.user}}
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#">Profil</a></li>
+                  <li><a class="dropdown-item" href="/cıkıs/">Çıkış Yap</a></li>
+                </ul>
+              </div>
+              {% else %}
               <a href="/kayıtol/">
                 <button class="ms-5 btn btn-outline-light">Kayıt ol</button>
               </a>
+              <a href="/girisyap/">
+                <button class="ms-2 btn btn-outline-light">Giriş Yap</button>
+              </a>
+              {% endif %}
+
             </div>
           </div>
         </div>
